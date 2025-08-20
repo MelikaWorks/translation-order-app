@@ -10,9 +10,7 @@ It demonstrates both **software development skills** and **project management wi
 - C#  
 - SQL Server  
 - Entity Framework Core  
-- GitHub Actions (CI/CD)
-- CSS/HTML
-- Java Script
+- GitHub Actions (CI/CD)  
 
 ---
 
@@ -22,19 +20,12 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 
 ### 🚀 Implemented Sprints:
 1. **Sprint 1 – Infrastructure & Authentication**
-   - Project setup, database creation, authentication, GitHub repo, CI/CD
 2. **Sprint 2 – Translator Profiles & Orders**
-   - Translator profiles, order creation form, saving to DB
 3. **Sprint 3 – Order Management & Files**
-   - Order status control, file upload/download, security testing
 4. **Sprint 4 – Payments & Notifications**
-   - Online payment integration, email/SMS notifications
 5. **Sprint 5 – Dashboard & Optimization**
-   - Admin dashboard, reports, bug fixing, performance optimization
 6. **Sprint 6 – Code & Database Optimization**
-   - Refactoring code, database tuning, security improvements
 7. **Sprint 7 – Final QA & Deployment**
-   - Full system testing, user feedback, deployment to production
 
 ---
 
@@ -46,15 +37,16 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 
 ---
 
-## 📂 Repository Contents
-- `src/` → ASP.NET Core MVC code  
-- `docs/` → Documentation (Agile & Scrum Guide, Sprint Reports)  
+## 📂 Repository Structure
+- `src/` → ASP.NET Core MVC source code  
+- `docs/` → Documentation (Agile & Scrum Guide, Sprint Reports, CSV exports from Azure)  
+- `screenshots/` → Azure DevOps screenshots (Boards, Backlogs, Sprints, Pipelines, etc.)  
 - `README.md` → This file  
 
 ---
 
 ## 🌟 Key Achievements
-- Learned and applied **Scrum methodology** in real project  
+- Learned and applied **Scrum methodology** in a real project  
 - Hands-on with **Azure DevOps Boards, Backlog, Sprint Planning, Capacity, Effort**  
 - Implemented **CI/CD with GitHub Actions**  
 - Built a working **ASP.NET Core MVC application**  
@@ -63,6 +55,6 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 
 ## 📢 Author
 👩‍💻 **Melika Mehranpour**  
-Full Stack .NET Developer | Agile & Scrum Enthusiast  
+Full Stack .NET Developer | Agile & Scrum Enthusiast 
 
 🔗 [LinkedIn](https://www.linkedin.com/in/melika-mehranpour-41b627161/) | [GitHub](https://github.com/MelikaWorks) | [Portfolio](https://github.com/MelikaWorks/Portfolio)
