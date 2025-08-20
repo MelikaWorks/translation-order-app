@@ -10,7 +10,9 @@ It demonstrates both **software development skills** and **project management wi
 - C#  
 - SQL Server  
 - Entity Framework Core  
-- GitHub Actions (CI/CD)  
+- GitHub Actions (CI/CD)
+- CSS/HTML
+- Java Script
 
 ---
 
