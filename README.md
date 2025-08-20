@@ -65,4 +65,4 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 👩‍💻 **Melika Mehranpour**  
 Full Stack .NET Developer | Agile & Scrum Enthusiast  
 
-🔗 [LinkedIn](https://linkedin.com/in/) | [GitHub](https://github.com/) | [Portfolio](https://melikamehranpour.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/melika-mehranpour-41b627161/) | [GitHub](https://github.com/MelikaWorks) | [Portfolio](https://github.com/MelikaWorks/Portfolio)
