@@ -1,0 +1,232 @@
+@model IEnumerable<DrTarjomeh.Models.DataBase.Ticket>
+@using DrTarjomeh.Plugins.ShamsiPage
+
+@* Admin Ticket View *@
+@{
+    ViewBag.Title = "View Ticket";
+    Layout = "~/Views/Admin/Shared/_AdminPanelPages.cshtml";
+}
+<head>
+    <link href="~/Plugins/ticket/TicketMessage.css" rel="stylesheet" />
+</head>
+
+
+<div class="card">
+    <div class="card-header" id="myModelBody">
+        <div class="card card-body">
+            <div class="panel panel-body">
+                <div class="box">
+                    <div class="pull-right box-tools">
+                        <span class="">
+                            @Html.Action("TiCketClose")
+                        </span>
+                    </div>
+                    <div></div>
+                    <div class="box-title">
+                        <span>
+                            <a href="/Admin/TicketList" class="btn btn-info">Back to List</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-horizontal">
+    <div class="panel panel-body" id="myModelBody">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="commentProduct">
+                    @Html.Action("TiCketReply")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="form-horizontal" id="ListTicket">
+    <div class="panel panel-body" id="myModelBody">
+        <div class="col-lg-12">
+            <link href="~/Plugins/ticket/TicketMessage.css" rel="stylesheet" />
+            @foreach (var item in Model.Where(t => t.admin_Id == null))
+            {
+                if (Model.Any(t => t.Tick_ParentId == item.Tick_Id || t.admin_Id != null))
+                {
+                    foreach (var rep in Model.Where(t => t.Tick_ParentPrim == item.Tick_Id))
+                    {
+                        <div class="panel panel-default" id="myitemBody">
+                            <div class="panel-heading">
+
+                                <div class="box">
+                                    <div class="box-header bg-transparent" style="background-color:paleturquoise">
+                                        <!-- tools box -->
+                                        <div class="pull-right box-tools">
+                                            Tracking No: @rep.Tick_Id
+                                        </div>
+                                        <div class="box-title">
+                                            @{
+                                                if (rep.Tick_Title != null)
+                                                {
+                                                    <span> Title: @item.Tick_Title</span>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="pull-left box-tools">
+                                            @{
+                                                if (rep.File_Id > 0)
+                                                {
+                                                    <span>Order No: @rep.File_Id</span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="">
+                                        <div class="">
+                                            <div class="inbox-nest">
+                                                <ul>
+                                                    <li>
+                                                        <i class="fa fa-envelope-open" style="color:green; font-size:x-large;"></i>
+                                                        <b>
+                                                            @if (rep.admin_Id == null)
+                                                            {
+                                                                var name = rep.Customer.PCstmr_Name;
+                                                                if (name == null)
+                                                                {
+                                                                    <span>Sender: @rep.Customer.Cstmr_Email</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>Sender: @rep.Customer.PCstmr_Name</span>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Sender: @rep.Admin.admin_Name </span>
+                                                                <span>
+                                                                    (@rep.Admin.Role.Role_Name)
+                                                                </span>
+                                                            }
+
+                                                        </b>
+                                                        <small> @PersianDateExtentionMethods.ToPeString(Convert.ToDateTime(rep.Tick_Dte), "dddd, dd MMMM,yyyy") </small>
+                                                        <hr />
+
+                                                        <div>
+                                                            <div class="text-aqua">Message</div>
+                                                            <p class="bbcode">
+                                                                @rep.Tick_Body
+                                                            </p>
+                                                        </div>                                                       
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- box -->
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div class="panel panel-default" id="myitemBody">
+                    <div class="panel-heading">
+                        @*<a onclick="ReplyComment(@item.Tick_Id)" class="reply-button">Reply</a>*@
+                        <div class="box">
+                            <div class="box-header bg-transparent" style="background-color:#c2e0f6">
+                                <!-- tools box -->
+                                <div class="pull-right box-tools">
+                                    Tracking No: @item.Tick_Id
+                                </div>
+                                <div class="box-title">
+                                    @{
+                                        if (item.Tick_Title != null)
+                                        {
+                                            <span> Title: @item.Tick_Title</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="pull-left box-tools">
+                                    @{
+                                        if (item.File_Id > 0)
+                                        {
+                                            <span>Order No: @item.File_Id</span>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <br>
+                            <div class="">
+                                <div class="">
+                                    <div class="inbox-nest">
+                                        <ul>
+                                            <li>
+                                                <i class="fa fa-envelope-open" style="color:green; font-size:x-large;"></i>
+                                                <b>
+                                                    @if (item.admin_Id == null)
+                                                    {
+                                                        var name = item.Customer.PCstmr_Name;
+                                                        if (name == null)
+                                                        {
+                                                            <span>Sender: @item.Customer.Cstmr_Email</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Sender: @item.Customer.PCstmr_Name</span>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Sender: @item.Admin.admin_Name </span>
+                                                    }
+
+                                                </b>
+                                                <small> @PersianDateExtentionMethods.ToPeString(Convert.ToDateTime(item.Tick_Dte), "dddd, dd MMMM,yyyy") </small>
+                                                <hr />
+
+                                                <div>
+                                                    <div class="text-aqua">Message</div>
+                                                    <p class="bbcode">
+                                                        @item.Tick_Body
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    @{
+                                                        if (item.Tick_FilePath != null)
+                                                        {
+                                                            <p class="bbcode">
+                                                                <a href="~/tarjomeh/@item.Tick_FilePath" class="text-info"><i class="fas fa-paperclip">Attachment</i></a>
+                                                            </p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="fas fa-paperclip" style="color:gainsboro"></i>
+                                                        }
+                                                    }
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- box -->
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function ReplyComment(id) {
+        $("#Tick_ParentPrim").val(id);
+        $("html, body").delay(2000).animate({ scrollTop: $('#commentProduct').offset().top }, 2000);
+    }
+</script>
