@@ -1,0 +1,313 @@
+#region[ticket]
+        public ActionResult TicketList()
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int id = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                var t = db.Tickets.Where(a => a.Cstmr_Id == qemail.Cstmr_Id).ToList();
+                return View(t.OrderByDescending(a => a.Tick_Dte));
+            }
+        }
+        public ActionResult Ticket()
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int id = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Ticket(TicketView model, HttpPostedFileBase file)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int id = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    Ticket tik = new Ticket
+                    {
+                        Tick_Title = model.Tick_Title,
+                        Tick_Body = model.Tick_Desc,
+                        Cstmr_Id = id,
+                        Tick_Dte = ((DateTimeNow).ToString("MM-dd-yyyy HH:mm:ss")),
+                        Tick_UpCust = true,
+                        Tick_Status = "New Ticket",
+                    };
+                    string d = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+                    
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string fileName = d + email + "-" + System.IO.Path.GetFileName(file.FileName);
+                        string path = "~/ticket/" + fileName;
+                        tik.Tick_FilePath = path;                        
+                        file.SaveAs(Server.MapPath(path)); 
+                    }
+                    else
+                    {
+                        throw new Exception("Error while uploading");
+                    }
+                    db.Tickets.Add(tik);
+                    db.SaveChanges();
+                    long idtick = tik.Tick_Id;
+                    Session["tickid"] = idtick;
+                    ModelState.Clear();
+                    //ViewBag.message = "Your ticket has been submitted. Our support team will contact you soon.";
+                    //return View(new TicketView());
+                    return RedirectToAction("TicketSuccess");
+                }
+                else
+                {
+                    ViewBag.message = "Please fill in all required fields.";
+                    return View(new TicketView());
+                }
+            }
+        }
+
+        public ActionResult TicketOrder(int id)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int ids = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                TicketView model = new TicketView();
+
+                if (id > 0)
+                {
+                    model.File_Id = id;                   
+                }
+
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult TicketOrder(TicketView model, HttpPostedFileBase file)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int ids = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                Ticket tik = new Ticket
+                {
+                    Tick_Title = model.Tick_Title,
+                    Tick_Body = model.Tick_Desc,
+                    Cstmr_Id = ids,
+                    File_Id=model.File_Id,
+                    Tick_Dte = ((DateTimeNow).ToString("MM-dd-yyyy HH:mm:ss")),
+                    Tick_UpCust = true,
+                    Tick_Status = "New Ticket",
+                };
+                string d = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string fileName = d + email + "-" + System.IO.Path.GetFileName(file.FileName);
+                    string path = "~/ticket/" + fileName;
+                    tik.Tick_FilePath = path;
+                    file.SaveAs(Server.MapPath(path)); 
+                }
+                else
+                {
+                    throw new Exception("Error while uploading");
+                }
+                db.Tickets.Add(tik);
+                db.SaveChanges();
+                long idtick = tik.Tick_Id;
+                Session["tickid"] = idtick;
+                ModelState.Clear();
+                //ViewBag.message = "Your ticket has been submitted. Our support team will contact you soon.";
+                //return View(new TicketView());
+                return RedirectToAction("TicketSuccess");    
+            }       
+        }
+        public ActionResult TicketShow(int id)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int ids = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                var t = db.Tickets.Where(a => a.Tick_Id == id && a.Cstmr_Id == ids).SingleOrDefault();
+                var t1 = db.Tickets.Where(b => b.Tick_ParentId == id && b.Cstmr_Id == ids || b.Tick_Id == id).OrderByDescending(c => c.Tick_Id).ToList();
+                if (t == null)
+                {
+                    return RedirectToAction("TicketList");
+                }
+                else
+                {
+                    t.Tick_UpCust = false;
+                    db.Tickets.Attach(t);
+                    db.Entry(t).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return View(t1);
+                }
+            }
+        }
+
+        public ActionResult TicketReply(int id)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int ids = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                Customer cm = new Customer();
+                Ticket tic = new Ticket();
+                if (qemail.PCstmr_Name != null)
+                {
+                    Session["nameCust"] = qemail.PCstmr_Name;
+                }
+                else
+                {
+                    Session["nameCust"] = qemail.Cstmr_Email;
+                }
+                var j = (from a in db.Tickets where (a.Cstmr_Id == ids && a.Tick_ParentId == id && a.Tick_ParentPrim != null && a.admin_Id != null) select a.Tick_Id).OrderByDescending(a => a).FirstOrDefault();
+                if (j == 0)
+                {
+                    var i = (from a in db.Tickets where (a.Cstmr_Id == ids && a.Tick_ParentId == null && a.Tick_ParentPrim == null && a.admin_Id == null) select a.Tick_Id).OrderByDescending(a => a).FirstOrDefault();
+                    Session["prime"] = i;
+                    Session["tickid"] = id;
+                    return PartialView(new Ticket()
+                    {
+                        Tick_Id = id,
+                        Cstmr_Id = ids,
+                        Tick_ParentPrim = i,
+                    });
+                }
+                else
+                {
+                    Session["prime"] = j;
+                    Session["tickid"] = id;
+                    return PartialView(new Ticket()
+                    {
+                        Tick_Id = id,
+                        Cstmr_Id = ids,
+                        Tick_ParentPrim = j,
+                    });
+                }
+
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult TicketReply(Ticket tick, string Btxt, int id)
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            string idq = Session["Cstmr_Id"].ToString();
+            int ids = Convert.ToInt32(idq);
+            string email = Session["Cstmr_Email"].ToString();
+
+            var qemail = db.Customers.Where(a => a.Cstmr_Email == email).SingleOrDefault();
+            if (qemail == null)
+            {
+                return RedirectToAction("CustomerLogin", "Account");
+            }
+            else
+            {
+                Session["nameCust"] = qemail.PCstmr_Name;
+                var j = (from a in db.Tickets where (a.Cstmr_Id == ids && a.Tick_ParentId == id && a.Tick_ParentPrim != null && a.admin_Id != null) select a.Tick_Id).OrderByDescending(a => a).FirstOrDefault();
+                if (j == 0)
+                {
+                    var i = (from a in db.Tickets where (a.Cstmr_Id == ids && a.Tick_ParentId == null && a.Tick_ParentPrim == null && a.admin_Id == null) select a.Tick_Id).OrderByDescending(a => a).FirstOrDefault();
+                    tick.Tick_ParentPrim = Convert.ToInt32(i);
+                }
+                else
+                {
+                    tick.Tick_ParentPrim = Convert.ToInt32(j);
+                }
+                //////////////////////////////////////////////////////////////
+                tick.Tick_Dte = ((DateTimeNow).ToString("MM-dd-yyyy HH:mm:ss"));
+                tick.Tick_ParentId = Convert.ToInt32(id);
+                tick.Tick_Body = Btxt;
+                tick.Cstmr_Id = ids;
+                tick.Tick_Title = null;
+                tick.admin_Id = null;
+                db.Tickets.Add(tick);
+                ////////////////////////////////////////////////////////////
+                var t = db.Tickets.Where(a => a.Tick_Id == id && a.Cstmr_Id == ids).SingleOrDefault();
+                t.Tick_UpCust = true;
+                t.Tick_DatModif = ((DateTimeNow).ToString("MM-dd-yyyy HH:mm:ss"));
+                t.Tick_Status = "Customer Message";
+                db.Tickets.Attach(t);
+                db.Entry(t).State = EntityState.Modified;
+                ///////////////////////////////////////////////////////////                
+                db.SaveChanges();
+                long idtick = tick.Tick_Id;
+                Session["tickid"] = idtick;
+                return RedirectToAction("TicketSuccess");
+            }
+        }
+        public ActionResult TicketSuccess()
+        {
+            if (Session["Cstmr_Email"] == null)
+                return RedirectToAction("CustomerLogin", "Account");
+            return View();
+        }
+#endregion
