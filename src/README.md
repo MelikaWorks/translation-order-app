@@ -54,20 +54,14 @@ This is not a full project structure — it is only the **Ticket System** extrac
 
 ## 📊 Ticket Workflow Diagram
 
-```mermaid
-sequenceDiagram
-    participant C as Customer
-    participant S as System
-    participant A as Admin
-
-    C->>S: Submit Ticket (Title + Body + File)
-    S->>A: Notify Admin (New Ticket: Unread)
-    A->>S: Reply to Ticket
-    S->>C: Notify Customer (Replied)
-    C->>S: Customer Reply
-    S->>A: Update Status (Customer Message)
-    A->>S: Close Ticket
-    S->>C: Status = Closed 
+Customer        → System  : Submit Ticket (Title + Body + File)
+System          → Admin   : Notify (New Ticket: Unread)
+Admin           → System  : Reply to Ticket
+System          → Customer: Notify (Replied)
+Customer        → System  : Customer Reply
+System          → Admin   : Update Status (Customer Message)
+Admin           → System  : Close Ticket
+System          → Customer: Status = Closed
 
 
 ✍️ **Author:** Melika Mehranpour  
