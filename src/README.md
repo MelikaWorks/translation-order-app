@@ -67,7 +67,7 @@ sequenceDiagram
     C->>S: Customer Reply
     S->>A: Update Status (Customer Message)
     A->>S: Close Ticket
-    S->>C: Status = Closed
+    S->>C: Status = Closed 
 
 
 ✍️ **Author:** Melika Mehranpour  
