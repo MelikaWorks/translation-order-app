@@ -55,13 +55,21 @@ This is not a full project structure — it is only the **Ticket System** extrac
 ## 📊 Ticket Workflow Diagram
 
 Customer        → System  : Submit Ticket (Title + Body + File)
+
 System          → Admin   : Notify (New Ticket: Unread)
+
 Admin           → System  : Reply to Ticket
+
 System          → Customer: Notify (Replied)
+
 Customer        → System  : Customer Reply
+
 System          → Admin   : Update Status (Customer Message)
+
 Admin           → System  : Close Ticket
+
 System          → Customer: Status = Closed
+
 
 
 ✍️ **Author:** Melika Mehranpour  
