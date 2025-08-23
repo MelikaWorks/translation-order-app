@@ -26,6 +26,7 @@ dotnet run     --project ./src/DrTarjomeh.Web/DrTarjomeh.Web.csproj
 dotnet restore ./src/DrTarjomeh.Web
 dotnet build   ./src/DrTarjomeh.Web -c Release
 dotnet run     --project ./src/DrTarjomeh.Web
+```
 
 ## 📋 Agile & Scrum in Azure DevOps
 The project was managed using **Scrum methodology** in **Azure DevOps**.  
