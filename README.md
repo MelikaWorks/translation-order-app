@@ -12,7 +12,20 @@ It demonstrates both **software development skills** and **project management wi
 - Entity Framework Core  
 - GitHub Actions (CI/CD)  
 
----
+## 🚀 Quick Start (local)
+
+Adjust the paths according to your actual repo structure. If you have a solution file, use it. If not, run the web project directly.
+
+```bash
+# Option A) With solution file:
+dotnet restore ./DrTarjomeh.sln
+dotnet build   ./DrTarjomeh.sln -c Release
+dotnet run     --project ./src/DrTarjomeh.Web/DrTarjomeh.Web.csproj
+
+# Option B) Directly with project:
+dotnet restore ./src/DrTarjomeh.Web
+dotnet build   ./src/DrTarjomeh.Web -c Release
+dotnet run     --project ./src/DrTarjomeh.Web
 
 ## 📋 Agile & Scrum in Azure DevOps
 The project was managed using **Scrum methodology** in **Azure DevOps**.  
