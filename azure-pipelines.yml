@@ -1,14 +1,10 @@
-
-###  `azure-pipelines.yml`
-
-
 ```yaml
 trigger:
   branches:
     include: [ main ]
 
 pool:
-  vmImage: 'windows-latest'   # یا ubuntu-latest
+  vmImage: 'windows-latest' # یا ubuntu-latest
 
 variables:
   BuildConfiguration: 'Release'
@@ -20,21 +16,20 @@ steps:
     version: '8.0.x'
 
 - task: DotNetCoreCLI@2
-  displayName: Restore
+  displayName: 'Restore'
   inputs:
     command: 'restore'
-    projects: '**/*.sln'
+    projects: 'src/**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: 'Build'
   inputs:
     command: 'build'
-    projects: '**/*.sln'
+    projects: 'src/**/*.csproj'
     arguments: '-c $(BuildConfiguration) --no-restore'
 
-
 - task: DotNetCoreCLI@2
-  displayName: Test
+  displayName: 'Test'
   inputs:
     command: 'test'
     projects: 'tests/**/*.csproj'
