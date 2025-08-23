@@ -53,7 +53,8 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 ## 📂 Repository Structure
 - `src/` → ASP.NET Core MVC source code  
 - `docs/` → Documentation (Agile & Scrum Guide, Sprint Reports, CSV exports from Azure)  
-- `screenshots/` → Azure DevOps screenshots (Boards, Backlogs, Sprints, Pipelines, etc.)  
+- `./Project-Screenshots/` → Project UI
+- `./Azure-Screenshots/` → Azure DevOps screenshots (Boards, Backlogs, Sprints, Pipelines, etc.)  
 - `README.md` → This file  
 
 ---
