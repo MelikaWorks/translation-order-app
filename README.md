@@ -116,7 +116,7 @@ This project is an **Online Translation Order Management System** that covers th
 ## 🌟 Key Achievements
 - Learned and applied **Scrum methodology** in a real project  
 - Hands-on with **Azure DevOps Boards, Backlog, Sprint Planning, Capacity, Effort**  
-- Implemented **CI/CD with GitHub Actions**  
+- Implemented **CI/CD with Azure Pipelines**  
 - Built a working **ASP.NET Core MVC application**  
 
 ---
