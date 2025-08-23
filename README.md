@@ -13,8 +13,7 @@ It demonstrates both **software development skills** and **project management wi
 - GitHub Actions (CI/CD)  
 
 ## 🚀 Quick Start (local)
-
-Adjust the paths according to your actual repo structure. If you have a solution file, use it. If not, run the web project directly.
+To run locally, restore, build, and run the solution or web project as below.
 
 ```bash
 # Option A) With solution file:
