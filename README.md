@@ -52,6 +52,10 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 ## 📂 Project Board
 See the [GitHub Project Board](https://github.com/users/MelikaWorks/projects/2/views/1) for tasks and progress.
 
+## 📂 Project Management
+Scrum practices applied in Azure DevOps.  
+👉 Detailed tasks are available here: [docs/tasks.md](./docs/tasks.md)
+
 ## 📂 Repository Structure
 - `src/` → ASP.NET Core MVC source code  
 - `docs/` → Documentation (Agile & Scrum Guide, Sprint Reports, CSV exports from Azure)  
