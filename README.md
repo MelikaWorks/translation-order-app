@@ -49,6 +49,8 @@ Each Sprint included backlog items, tasks, estimates, and capacity planning.
 - **Sprint Retrospective:** Documented lessons learned for improvement  
 
 ---
+## 📂 Project Board
+See the [GitHub Project Board](https://github.com/MelikaWorks/translation-order-app/projects/translation-order-Board) for tasks and progress.
 
 ## 📂 Repository Structure
 - `src/` → ASP.NET Core MVC source code  
