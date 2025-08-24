@@ -10,7 +10,7 @@ It demonstrates both **software development skills** and **project management wi
 - C#  
 - SQL Server  
 - Entity Framework Core  
-- GitHub Actions (CI/CD)  
+- Azure Pipelines (CI/CD)  
 
 ## 🚀 Quick Start (local)
 To run locally, restore, build, and run the solution or web project as below.
