@@ -1,3 +1,5 @@
+[![CI](https://github.com/MelikaWorks/translation-order-app/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MelikaWorks/translation-order-app/actions/workflows/ci.yml)
+
 # Translation Order Management System
 
 This project is a sample **Translation Order Management System** built with **ASP.NET Core MVC** and **SQL Server**.  
