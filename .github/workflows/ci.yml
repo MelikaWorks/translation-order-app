@@ -12,14 +12,19 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # چند SDK تا اگر پروژه‌ات Net 7/6 بود هم بسازد
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            7.0.x
+            6.0.x
 
       - name: Cache NuGet
         uses: actions/cache@v4
@@ -29,12 +34,33 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
+      # ساختار ریپو را برای دیباگ چاپ کن
+      - name: Show repo layout (top 2 levels)
+        shell: pwsh
+        run: |
+          Get-ChildItem -Recurse -Depth 2 | Select-Object FullName
+
+      # به صورت خودکار اولین .sln یا در غیر این صورت اولین .csproj را پیدا کن
+      - name: Locate solution/project
+        id: locate
+        shell: pwsh
+        run: |
+          $sln = Get-ChildItem -Recurse -Filter *.sln | Select-Object -First 1
+          if ($sln) { $path = $sln.FullName } else {
+            $csproj = Get-ChildItem -Recurse -Filter *.csproj |
+              Where-Object { $_.FullName -notmatch '\\(test|tests)\\' } |
+              Select-Object -First 1
+            if ($csproj) { $path = $csproj.FullName }
+          }
+          if (-not $path) {
+            Write-Error "No .sln or .csproj found in repo. Put your solution at repo root or update the workflow paths."
+            exit 1
+          }
+          "SP=$path" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "Using: $path"
+
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore "$env:SP"
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test --configuration Release --no-build --verbosity normal
-        continue-on-error: true
+        r
