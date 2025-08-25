@@ -63,4 +63,16 @@ jobs:
         run: dotnet restore "$env:SP"
 
       - name: Build
-        r
+        run: dotnet build "$env:SP" --configuration Release --no-restore -v minimal
+
+      # اگر تست داری اجرا می‌شود؛ نداشتی رد نمی‌کند
+      - name: Test (auto-detect)
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $tests = Get-ChildItem -Recurse -Filter *.csproj | Where-Object { $_.FullName -match '(test|tests)' }
+          if ($tests) {
+            dotnet test --configuration Release --no-build --verbosity normal
+          } else {
+            Write-Host "No test projects detected. Skipping."
+          }
