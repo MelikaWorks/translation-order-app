@@ -8,6 +8,8 @@ It demonstrates both **software development skills** and **project management wi
 This project is a web-based Translation Order Management System built with ASP.NET Core MVC and SQL Server.
 
 It demonstrates SaaS-style architecture concepts such as multi-user workflows and web-based service delivery.
+
+
 ---
 
 ## 🔧 Tech Stack
