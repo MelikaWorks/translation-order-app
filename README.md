@@ -5,17 +5,9 @@
 This project is a sample **Translation Order Management System** built with **ASP.NET Core MVC** and **SQL Server**.  
 It demonstrates both **software development skills** and **project management with Agile (Scrum) using Azure DevOps**.
 
-## SaaS-like Features
+This project is a web-based Translation Order Management System built with ASP.NET Core MVC and SQL Server.
 
-This platform includes several SaaS-style characteristics:
-
-- Web-based access for customers and operators
-- Multi-user system with role-based workflows (Customer / Operator)
-- Online file upload, processing, and delivery
-- Dynamic pricing and order management
-- No installation required (accessible via browser)
-
-Note: This system follows SaaS principles but is designed as a single-service platform rather than a fully multi-tenant SaaS architecture.
+It demonstrates SaaS-style architecture concepts such as multi-user workflows and web-based service delivery.
 ---
 
 ## 🔧 Tech Stack
